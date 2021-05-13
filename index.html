@@ -11,9 +11,27 @@
 
 <body>
     <div id="mainContent">
-        <h1>The Impact Race has on Health</h1>
+        <h1 id="pageTitle">The Impact Race has on Health</h1>
         <br>
-        <img id="firstImage" src="images/healthCare1.jpeg" alt="healthCare1">
+        <div id="diabetes_charts">
+            <div id="white_diabetes_charts">
+                <h4>White Readmission Rates for Diabetes</h4>
+            </div>
+            <div id="black_diabetes_charts">
+                <h4>Black Readmission Rates for Diabetes</h4>
+            </div>
+            <div id="other_diabetes_charts">
+                <h4>Other Races Readmission Rates for Diabetes</h4>
+            </div>
+        </div>
+        <small>From the charts above it is apparent that the there is some difference in the rates of readmission based
+            on race. Readmission in less than 30 days is usually a bad sign as it signals that the patient was likely
+            not
+            given the correct treatment. However, the variantion between races is small and does not show a large
+            dicrepency. So what could be the cause of more Black Americans dying from diabetes, and what role does
+            modern medicine play in it? [data found <a
+                href="https://www.kaggle.com/brandao/diabetes?select=diabetic_data.csv">Here</a>]</small>
+
         <h2>What is race?</h2>
         <p>Race is a loosely defined classification of people based on key physical characteristics and/or geographic
             ancestry. In the past, blatant racism was rampant in the healthcare industry as it was in every other part
@@ -32,6 +50,7 @@
             <div id="pieChart2"></div>
             <div id="pieChart3"></div>
         </div> -->
+        <img id="firstImage" src="images/healthCare1.jpeg" alt="healthCare1">
         <h2>Race-Based Medicine</h2>
 
         <p>Race-based medicine is applied in two ways. The first is the assumption that race is genetic, therefore
@@ -67,10 +86,12 @@
                 <h4>All Americans Highest Level of Education</h4>
             </div>
         </div>
-        <p>The charts above illustrate the level of variance there are among people of the same race is a similar amount
+        <small>The charts above illustrate the level of variance there are among people of the same race is a similar
+            amount
             of variance among the education level of adult Asian Americans are there among all Americans as a whole.
             This proves that simply trying to make assumptions about an individual based on their race could lead to
-            inaccurate results</p>
+            inaccurate results. [data found <a
+                href="https://www.kaggle.com/johnolafenwa/us-census-data?select=adult-training.csv">Here</a>]</small>
         <h2>Racism</h2>
         <p>So far I have discussed why race is a social construct and why is a bad proxy for other information about a
             person's life for medical professionals. This still begs the question of why there are is such a big
@@ -83,6 +104,14 @@
         <p>In the end, with race itself not being the reason why certain people are more likely to have a certain health
             outcome and with the role that racism has played in determining people's environment and access to
             resources, it is apparent that race does not have an impact on health instead racism does.</p>
+        <h2>References</h2>
+        <ul>
+            <li class="citation">Race and eGFR: What is the controversy? (2020, October 28). Retrieved May 13, 2021,
+                from <a href="https://www.kidney.org/atoz/content/race-and-egfr-what-controversy">
+                    https://www.kidney.org/atoz/content/race-and-egfr-what-controversy</a></li>
+            <li class="citation">Levels of racism: A theoretic framework and a gardener's tale. (2000). American Journal
+                of Public Health, 90(8), 1212-1215. doi:10.2105/ajph.90.8.1212</li>
+        </ul>
     </div>
 
     <script src="main.js"></script>

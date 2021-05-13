@@ -5,6 +5,21 @@ body{
     display: flex;
     justify-content: space-evenly;
 }
+#diabetes_charts{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+}
+#pageTitle{
+    margin-top: 50px;
+}
+small{
+    display:block;
+    margin: 0 auto;
+    width: 70%;
+    margin-bottom: 30px;
+}
 #firstImage{
     width: 400px;
     height: 300px;
@@ -26,4 +41,8 @@ p{
     width: 60%;
     display: block;
     margin: auto;
+}
+.citation{
+    text-indent: 0;
+    margin: 0;
 }

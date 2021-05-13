@@ -42,18 +42,18 @@ function loadData() {
             maxYAll = 0
             for (let key in barChartDataAsian) {
                 maxYAsian = Math.max(maxYAsian, barChartDataAsian[key])
-                finalAsianData.push({ education: key, value: barChartDataAsian[key] })
+                finalAsianData.push({ key: key, value: barChartDataAsian[key] })
             }
             for (let key in barChartDataAll) {
                 if (key != "") {
                     maxYAll = Math.max(maxYAll, barChartDataAll[key])
-                    finalAllData.push({ education: key, value: barChartDataAll[key] })
+                    finalAllData.push({ key: key, value: barChartDataAll[key] })
                 }
 
             }
-
-            createVis(finalAsianData, maxYAsian, "#asian_edu_chart")
-            createVis(finalAllData, maxYAll, '#everyone_edu_chart')
+            console.log(finalAllData)
+            createVis(finalAsianData, maxYAsian, "#asian_edu_chart",'#F05314')
+            createVis(finalAllData, maxYAll, '#everyone_edu_chart','#F0145A')
         });
 
     url = "data/diabetes_readmission/diabetic_data.csv";
@@ -64,48 +64,78 @@ function loadData() {
             whiteCount = 0
             blackCount = 0
             otherCount = 0
-            whiteReAdminCount = 0
-            blackReAdminCount = 0
-            otherReAdminCount = 0
+            whiteLess30Count = 0
+            blackLess30Count = 0
+            otherLess30Count = 0
+            whiteMore30Count = 0
+            blackMore30Count = 0
+            otherMore30Count = 0
             whiteData = {}
             blackData = {}
             otherData = {}
             for (let i = 0; i < data.length; i++) {
                 if (data[i]['race'] === 'Caucasian' && data[i]['gender'] === 'Male') {
-                    whiteCount++;
                     if (data[i]['readmitted'] === '<30') {
-                        whiteReAdminCount++;
+                        whiteLess30Count++;
+                    }
+                    else if(data[i]['readmitted'] === '>30'){
+                        whiteMore30Count++;
+                    }
+                    else{
+                        whiteCount++;
                     }
                 }
                 else if (data[i]['race'] === 'AfricanAmerican' && data[i]['gender'] === 'Male') {
-                    blackCount++;
                     if (data[i]['readmitted'] === '<30') {
-                        blackReAdminCount++;
+                        blackLess30Count++;
+                    }
+                    else if(data[i]['readmitted'] === '>30'){
+                        blackMore30Count++;
+                    }
+                    else{
+                        blackCount++;
                     }
                 }
                 else if (data[i]['race'] === 'Other' && data[i]['gender'] === 'Male') {
-                    otherCount++;
                     if (data[i]['readmitted'] === '<30') {
-                        otherReAdminCount++;
+                        otherLess30Count++;
+                    }
+                    else if(data[i]['readmitted'] === '>30'){
+                        otherMore30Count++;
+                    }
+                    else{
+                        otherCount++;
                     }
                 }
             }
-            whitePieChartData = { notReadmitted: Math.round(((whiteCount-whiteReAdminCount)/whiteCount)*100), readmission: Math.round((whiteReAdminCount/whiteCount)*100) }
-            blackPieChartData = { notReadmitted: Math.round(((blackCount-blackReAdminCount)/blackCount)*100), readmission: Math.round((blackReAdminCount/blackCount)*100) }
-            otherPieChartData = { notReadmitted: Math.round(((otherCount-otherReAdminCount)/otherCount)*100), readmission: Math.round((otherReAdminCount/otherCount)*100) }
+            // whitePieChartData = { notReadmitted: Math.round(((whiteCount-whiteLess30Count)/whiteCount)*100), readmission: Math.round((whiteLess30Count/whiteCount)*100) }
+            // blackPieChartData = { notReadmitted: Math.round(((blackCount-blackLess30Count)/blackCount)*100), readmission: Math.round((blackLess30Count/blackCount)*100) }
+            // otherPieChartData = { notReadmitted: Math.round(((otherCount-otherLess30Count)/otherCount)*100), readmission: Math.round((otherLess30Count/otherCount)*100) }
+            
+            let whiteDiabetesData = []
+            whiteDiabetesData.push({key: "Not Readmitted", value: whiteCount})
+            whiteDiabetesData.push({key: "Readmitted <30 days", value: whiteLess30Count})
+            whiteDiabetesData.push({key: "Readmitted >30 days", value: whiteMore30Count})
 
-            console.log(whitePieChartData)
-            console.log(blackPieChartData)
-            console.log(otherPieChartData)
+            
+            let blackDiabetesData = []
+            blackDiabetesData.push({key: "Not Readmitted", value: blackCount})
+            blackDiabetesData.push({key: "Readmitted <30 days", value: blackLess30Count})
+            blackDiabetesData.push({key: "Readmitted >30 days", value: blackMore30Count})
 
-            // createPieVis(whitePieChartData, "#pieChart1")
-            // createPieVis(blackPieChartData, "#pieChart2")
-            // createPieVis(otherPieChartData, "#pieChart3")
+            let otherDiabetesData = []
+            otherDiabetesData.push({key: "Not Readmitted", value: otherCount})
+            otherDiabetesData.push({key: "Readmitted <30 days", value: otherLess30Count})
+            otherDiabetesData.push({key: "Readmitted >30 days", value: otherMore30Count})
+
+            createVis(whiteDiabetesData,Math.max(whiteCount,whiteLess30Count,whiteMore30Count),'#white_diabetes_charts','#14F05D')
+            createVis(blackDiabetesData,Math.max(blackCount,blackLess30Count,blackMore30Count),'#black_diabetes_charts', '#14ADF0')
+            createVis(otherDiabetesData,Math.max(otherCount, otherLess30Count,otherMore30Count),'#other_diabetes_charts','#BE14F0')
         });
 
 }
 
-function createVis(data, maxY, div) {
+function createVis(data, maxY, div, color) {
     // set the dimensions and margins of the graph
     var margin = { top: 10, right: 30, bottom: 90, left: 40 },
         width = 460 - margin.left - margin.right,
@@ -123,7 +153,7 @@ function createVis(data, maxY, div) {
     // X axis
     var x = d3.scaleBand()
         .range([0, width])
-        .domain(data.map(function (d) { return d.education; }))
+        .domain(data.map(function (d) { return d.key; }))
         .padding(0.2);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -144,9 +174,9 @@ function createVis(data, maxY, div) {
         .data(data)
         .enter()
         .append("rect")
-        .attr("x", function (d) { return x(d.education); })
+        .attr("x", function (d) { return x(d.key); })
         .attr("width", x.bandwidth())
-        .attr("fill", "#69b3a2")
+        .attr("fill", color)
         // no bar at the beginning thus:
         .attr("height", function (d) { return height - y(0); }) // always equal to 0
         .attr("y", function (d) { return y(0); })
@@ -154,7 +184,7 @@ function createVis(data, maxY, div) {
     // Animation
     svg.selectAll("rect")
         .transition()
-        .duration(800)
+        .duration(1000)
         .attr("y", function (d) { return y(d.value); })
         .attr("height", function (d) { return height - y(d.value); })
         .delay(function (d, i) {//console.log(i) 
@@ -162,50 +192,3 @@ function createVis(data, maxY, div) {
         })
 }
 
-function createPieVis(datat, div){
-// set the dimensions and margins of the graph
-var width = 450
-    height = 450
-    margin = 40
-
-// The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-var radius = Math.min(width, height) / 2 - margin
-
-
-var svg = d3.select(div)
-  .append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-    var data = [{a: 9}, {b: 20}, {c:30}, {d:8}, {e:12}]
-// set the color scale
-var color = d3.scaleOrdinal()
-  .domain(data)
-  .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"])
-
-// Compute the position of each group on the pie:
-var pie = d3.pie()
-  .value(function(d) {
-      console.log(d[1])
-      return d.value; })
-var data_ready = pie(Object.entries(data))
-
-// Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-svg
-  .selectAll('whatever')
-  .data(data_ready)
-  .enter()
-  .append('path')
-  .attr('d', d3.arc()
-    .innerRadius(0)
-    .outerRadius(radius)
-  )
-  .attr('fill', function(d){ return(color(d.data.key)) })
-  .attr("stroke", "black")
-  .style("stroke-width", "2px")
-  .style("opacity", 0.7)
-
-
-}
