@@ -1,0 +1,29 @@
+body{
+    background-color: rgb(247, 247, 247);
+}
+#edu_charts{
+    display: flex;
+    justify-content: space-evenly;
+}
+#firstImage{
+    width: 400px;
+    height: 300px;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+#mainContent{
+    width: 80%;
+    margin: auto;
+}
+p{
+    line-height: 2;
+    text-indent: 40px;
+    margin-right: 7%;
+}
+#gfrImage{
+    width: 60%;
+    display: block;
+    margin: auto;
+}
